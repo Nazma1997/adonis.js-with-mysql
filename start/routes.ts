@@ -56,4 +56,7 @@ Route.post('/books', 'Http/BooksController.create' )
 Route.patch('/books/:id/edit', 'Http/BooksController.update')
 Route.delete('/books/:id/delete', 'Http/BooksController.delete')
 
-// 
+// skill route endpoint (many to many relationship)
+
+Route.get('/skills', 'Http/SkillsController.index')
+Route.post('/skills', 'Http/SkillsController.create')
