@@ -38,6 +38,7 @@ Route.get('/', async () => {
 // user routes end point
 Route.get('/users', 'Http/UsersController.index') 
 Route.post('/users', 'Http/UsersController.create' )
+Route.post('/users/login', 'Http/UsersController.login' )
 Route.patch('/users/:id/edit', 'Http/UsersController.update' )
 Route.delete('/users/:id/delete', 'Http/UsersController.delete' )
 Route.get('/users/user/:id', 'Http/UsersController.user')
@@ -60,3 +61,10 @@ Route.delete('/books/:id/delete', 'Http/BooksController.delete')
 
 Route.get('/skills', 'Http/SkillsController.index')
 Route.post('/skills', 'Http/SkillsController.create')
+
+
+// Auth
+
+
+Route.post('/auth/register', 'Http/AuthController.register')
+Route.post('/auth/login', 'Http/AuthController.login')

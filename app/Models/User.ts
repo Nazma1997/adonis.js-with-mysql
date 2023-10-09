@@ -10,9 +10,13 @@ import {
   HasOne,
   manyToMany,
   ManyToMany,
+  beforeSave,
 } from '@ioc:Adonis/Lucid/Orm';
 import Profile from './Book';
 import Skill from './Skill';
+import Auth from './Auth';
+import Hash from '@ioc:Adonis/Core/Hash'
+
 
 export default class User extends BaseModel {
   @hasMany(() => Post, {
@@ -39,5 +43,15 @@ export default class User extends BaseModel {
   public name: string;
 
   @column()
+  public password: string;
+
+  @column()
   public email: string;
+
+  @beforeSave()
+  public static async hashPassword (auth: Auth) {
+    if (auth.$dirty.password) {
+      auth.password = await Hash.make(auth.password)
+    }
+  }
 }

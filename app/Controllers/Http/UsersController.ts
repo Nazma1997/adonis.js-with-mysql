@@ -1,3 +1,4 @@
+
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 
@@ -11,8 +12,15 @@ export default class UsersController {
     }
 
     public async create({ request, response }: HttpContextContract) {
+
         try {
-            const userData = request.only(['name', 'email'])
+            const userData = request.only(['name', 'email', 'password'])
+
+            const existingUser = await User.findBy('email', userData.email)
+
+            if (existingUser) {
+                return response.status(400).json({ message: 'Email already used' })
+            }
             const user = await User.create(userData)
             return response.status(201).json(user)
         } catch (error) {
@@ -23,7 +31,7 @@ export default class UsersController {
     public async update({ params, request, response }: HttpContextContract) {
         try {
             const user = await User.findOrFail(params.id)
-            const userData = request.only(['name', 'email'])
+            const userData = request.only(['name', 'email', 'password'])
             user.merge(userData)
             await user.save()
             return response.status(200).json(user)
@@ -51,6 +59,19 @@ export default class UsersController {
     //     const userPosts = await user.posts().fetch();
     //     return response.status(200).json({ user, posts: userPosts });
     // }
+
+
+    
+    public async login({ auth, request, response }) {
+        try {
+            const email = request.input('email')
+            const password = request.input('password')
+            await auth.use('web').attempt(email, password)
+        } catch (error) {
+            return response.status(500).json({ message: 'Internal server error' })
+        }
+    }
+
 
 
 }

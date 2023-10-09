@@ -12,8 +12,8 @@ export default class Auth extends BaseModel {
   @column({ serializeAs: null })
   public password: string
 
-  @column()
-  public rememberMeToken: string | null
+  // @column()
+  // public rememberMeToken: string | null
 
   @beforeSave()
   public static async hashPassword (auth: Auth) {

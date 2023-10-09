@@ -20,6 +20,7 @@
   "namespaces": {
     "httpControllers": "App/Controllers"
   },
+
   "providers": [
     "./providers/AppProvider",
     "@adonisjs/core",
