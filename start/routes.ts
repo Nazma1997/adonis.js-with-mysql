@@ -44,13 +44,16 @@ Route.get('/users/user/:id', 'Http/UsersController.user')
 
 
 
-//post route end point
+//post route end point(one to many relationship)
 Route.get('/posts', 'Http/PostsController.index')
 Route.post('/posts' ,'Http/PostsController.create')
 Route.patch('/posts/:id/edit', 'Http/PostsController.update' )
 Route.delete('/posts/:id/delete', 'Http/PostsController.delete' )
 
-// book route endpoint 
+// book route endpoint (one to one reletionship)
 Route.get('/books', 'Http/BooksController.index')
 Route.post('/books', 'Http/BooksController.create' )
+Route.patch('/books/:id/edit', 'Http/BooksController.update')
+Route.delete('/books/:id/delete', 'Http/BooksController.delete')
 
+// 
