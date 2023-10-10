@@ -41,7 +41,10 @@ Route.post('/users', 'Http/UsersController.create' )
 Route.post('/users/login', 'Http/UsersController.login' )
 Route.patch('/users/:id/edit', 'Http/UsersController.update' )
 Route.delete('/users/:id/delete', 'Http/UsersController.delete' )
-Route.get('/users/user/:id', 'Http/UsersController.user')
+Route.get('/users/user/:id', 'Http/UsersController.user').middleware(async (ctx, next) => {
+  console.log(`Inside middleware ${ctx.request.url()}`)
+  await next()
+})
 
 
 
@@ -68,3 +71,7 @@ Route.post('/skills', 'Http/SkillsController.create')
 
 Route.post('/auth/register', 'Http/AuthController.register')
 Route.post('/auth/login', 'Http/AuthController.login')
+
+
+
+// Route.get('/authenticated-route', 'SomeController.someMethod').middleware(['auth'])

@@ -51,14 +51,15 @@ export default class UsersController {
         }
     }
 
-    // public async user({ params, response }) {
-    //     const user = await User.find(params.id);
-    //     if (!user) {
-    //         return response.status(404).json({ message: 'User not found' });
-    //     }
-    //     const userPosts = await user.posts().fetch();
-    //     return response.status(200).json({ user, posts: userPosts });
-    // }
+    public async user({ params, response }) {
+        const user = await User.find(params.id);
+        if (!user) {
+            return response.status(404).json({ message: 'User not found' });
+        }
+        
+        return response.status(200).json({message:'Get single user', user});
+    }
+    
 
 
     
