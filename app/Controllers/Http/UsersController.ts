@@ -52,16 +52,12 @@ export default class UsersController {
         }
     }
 
-    public async user({ params, response }) {
-        const user = await Auth.find(params.id);
-        if (!user) {
-            return response.status(404).json({ message: 'User not found' });
-        }
-        
-        return response.status(200).json({message:'Get single user', user});
+    public async user({ auth, response }) {
+        const user = auth.user;
+        return response.status(200).json({ message: 'Get single user', user });
     }
     
-
+    
 
     
     public async login({ auth, request, response }) {

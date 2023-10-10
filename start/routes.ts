@@ -41,10 +41,9 @@ Route.post('/users', 'Http/UsersController.create' )
 Route.post('/users/login', 'Http/UsersController.login' )
 Route.patch('/users/:id/edit', 'Http/UsersController.update' )
 Route.delete('/users/:id/delete', 'Http/UsersController.delete' )
-Route.get('/users/user/:id', 'Http/UsersController.user').middleware(async (ctx, next) => {
-  console.log(`Inside middleware ${ctx.request.url()}`)
-  await next()
-})
+Route.get('/users/user', 'Http/UsersController.user').middleware('authentication')
+ 
+
 
 
 

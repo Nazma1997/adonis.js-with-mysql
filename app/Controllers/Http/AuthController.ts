@@ -34,9 +34,10 @@ export default class AuthController {
             await auth.use('web').attempt(email, password)
 
             return response.status(201).json({ message: 'User Logged' })
+           
         } catch (error) {
-            console.log('error', error)
-            return response.status(500).json(error)
+    
+            return response.unauthorized('Invalid credentials')
         }
     }
 }
