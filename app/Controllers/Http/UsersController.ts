@@ -1,5 +1,6 @@
 
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Auth from 'App/Models/Auth';
 import User from 'App/Models/User'
 
 
@@ -16,12 +17,12 @@ export default class UsersController {
         try {
             const userData = request.only(['name', 'email', 'password'])
 
-            const existingUser = await User.findBy('email', userData.email)
+            const existingUser = await Auth.findBy('email', userData.email)
 
             if (existingUser) {
                 return response.status(400).json({ message: 'Email already used' })
             }
-            const user = await User.create(userData)
+            const user = await Auth.create(userData)
             return response.status(201).json(user)
         } catch (error) {
             return response.status(400).json({ message: 'invalid data' })
@@ -30,7 +31,7 @@ export default class UsersController {
 
     public async update({ params, request, response }: HttpContextContract) {
         try {
-            const user = await User.findOrFail(params.id)
+            const user = await Auth.findOrFail(params.id)
             const userData = request.only(['name', 'email', 'password'])
             user.merge(userData)
             await user.save()
@@ -43,7 +44,7 @@ export default class UsersController {
 
     public async delete({ params, response }) {
         try {
-            const user = await User.findOrFail(params.id)
+            const user = await Auth.findOrFail(params.id)
             await user.delete()
             return response.status(204).json({ message: 'User deleted successfully', user })
         } catch (error) {
@@ -52,7 +53,7 @@ export default class UsersController {
     }
 
     public async user({ params, response }) {
-        const user = await User.find(params.id);
+        const user = await Auth.find(params.id);
         if (!user) {
             return response.status(404).json({ message: 'User not found' });
         }

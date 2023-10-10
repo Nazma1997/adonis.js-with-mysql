@@ -7,7 +7,7 @@ import Auth from 'App/Models/Auth'
 
 export default class AuthController {
 
-    public async register({ request, response }: HttpContextContract) {
+    public async register({request, response }: HttpContextContract) {
 
         try {
             const userData = request.only(['name', 'email', 'password'])
@@ -19,6 +19,9 @@ export default class AuthController {
             }
             const user = await Auth.create(userData)
             return response.status(201).json(user)
+
+           
+            
         } catch (error) {
             return response.status(400).json({ message: 'invalid data' })
         }
