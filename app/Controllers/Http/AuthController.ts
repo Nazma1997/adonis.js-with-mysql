@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Auth from 'App/Models/Auth'
-import User from 'App/Models/User'
+
 
 
 
